@@ -36,6 +36,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'programs.apps.ProgramsConfig',
+    'rest_framework',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
