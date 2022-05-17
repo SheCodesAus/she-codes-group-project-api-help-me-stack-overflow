@@ -36,6 +36,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'students.apps.StudentsConfig',
     'programs.apps.ProgramsConfig',
     'rest_framework',
     'corsheaders',
