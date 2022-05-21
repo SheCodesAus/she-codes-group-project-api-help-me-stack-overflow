@@ -25,7 +25,13 @@ class StudentsSerializer(serializers.Serializer):
     student_status= serializers.CharField(max_length=10)
 
     def create(self, validated_data):
-        return Students.objects.create(**validated_data)
+        # Get the list of Coding Languages out of validated data
+        coding_languages = validated_data.pop('coding_languages')
+        # create the Student record without the related Coding Languages
+        student = Students.objects.create(**validated_data)
+        # Add the Coding Languages using set. See https://docs.djangoproject.com/en/4.0/ref/models/relations/#django.db.models.fields.related.RelatedManager.set
+        student.coding_languages.set(coding_languages)
+        return student
 
 
 class StudentsDetailSerializer(StudentsSerializer):
