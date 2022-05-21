@@ -15,7 +15,7 @@ class Reports(models.Model):
     demographic_gender = models.CharField(max_length=200)
     demographic_nationality = models.CharField(max_length=200)
     total_attendance = models.IntegerField()
-    program_attendence = models.IntegerField(max_length=200)
+    program_attendence = models.IntegerField()
     attendee_to_alumni = models.IntegerField()
     alumni_to_mentor = models.IntegerField()
     program_date = models.DateTimeField()
