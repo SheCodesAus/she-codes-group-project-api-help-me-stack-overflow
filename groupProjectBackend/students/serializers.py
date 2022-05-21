@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Students
+from .models import StudentCodingLanguages, Students
 
 class StudentsSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
@@ -16,8 +16,13 @@ class StudentsSerializer(serializers.Serializer):
     employment_position = serializers.CharField(max_length=200)
     employment_industry = serializers.CharField(max_length=200)
     employment_salary = serializers.IntegerField()
-    program_attendence = serializers.CharField(max_length=200)
-    coding_languages = serializers.CharField(max_length=200)
+    program_attendence = serializers.ReadOnlyField(source='program.id')
+    coding_languages = serializers.SlugRelatedField(
+        many=True,
+        slug_field="slug",
+        queryset=StudentCodingLanguages.objects.all()
+    )
+    student_status= serializers.CharField(max_length=10)
 
     def create(self, validated_data):
         return Students.objects.create(**validated_data)
@@ -41,6 +46,21 @@ class StudentsDetailSerializer(StudentsSerializer):
         instance.employment_salary = validated_data.get('employment_salary',instance.employment_salary)
         instance.program_attendence = validated_data.get('program_attendence',instance.program_attendence)
         instance.coding_languages = validated_data.get('coding_languages',instance.coding_languages)
+        instance.student_status = validated_data.get('student_status',instance.student_status)
         instance.save()
         return instance
+
+class StudentCodingLanguagesSerializer(serializers.Serializer):
+    id = serializers.ReadOnlyField()
+    category_name = serializers.CharField(max_length=50)
+    slug = serializers.SlugField() 
+
+    def create(self, validated_data):
+        return StudentCodingLanguages.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.category_name = validated_data.get('category_name',instance.category_name)
+        instance.slug = validated_data.get('slug',instance.slug)
+        instance.save()
+        return 
 
