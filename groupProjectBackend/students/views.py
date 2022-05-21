@@ -1,9 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
-from rest_framework import status
-from .models import Students
-from .serializers import StudentsSerializer, StudentsDetailSerializer
+from rest_framework import status, generics
+from .models import StudentCodingLanguages, Students
+from .serializers import StudentsSerializer, StudentsDetailSerializer, StudentCodingLanguagesSerializer
 
 #Students listing function. Get a list of students and post to create new students
 class StudentsList(APIView):
@@ -67,6 +67,11 @@ class StudentsDetail(APIView):
         return Response(
             status=status.HTTP_204_NO_CONTENT
         )
+
+
+class StudentCodingLanguagesList(generics.ListCreateAPIView):
+    serializer_class = StudentCodingLanguagesSerializer
+    queryset = StudentCodingLanguages.objects.all()
 
         
 
