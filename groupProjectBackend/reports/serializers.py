@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import Reports
 
 class ReportsSerlializer(serializers.Serializer):
     location = serializers.CharField(max_length=200)
@@ -13,6 +14,11 @@ class ReportsSerlializer(serializers.Serializer):
     transition_to_tech = serializers.IntegerField()
     transition_to_other_program = serializers.IntegerField()
     transition_to_other_study = serializers.IntegerField()
+
+    def create(self, validated_data):
+        return Reports.objects.create(**validated_data)
+
+        
 
 
 
