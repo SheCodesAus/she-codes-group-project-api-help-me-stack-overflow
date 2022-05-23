@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Reports
 
 class ReportsSerlializer(serializers.Serializer):
+    id = serializers.ReadOnlyField()
     location = serializers.CharField(max_length=200)
     demographic_gender = serializers.CharField(max_length=200)
     demographic_nationality = serializers.CharField(max_length=200)

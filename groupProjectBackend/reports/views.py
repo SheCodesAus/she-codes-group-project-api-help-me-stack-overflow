@@ -5,6 +5,7 @@ from .serializers import ReportsSerlializer
 from django.http import Http404
 from rest_framework import status
 
+
 class ReportList(APIView):
 
     def get(self, request):
@@ -29,6 +30,24 @@ class ReportList(APIView):
                 status=status.HTTP_400_BAD_REQUEST
         )
 
+    def put(self, request, pk):
+        reports = self.get_objects(pk)
+        ReportList = request.data
+        serializer = ReportsSerlializer(
+            instance = project,
+            data = data,
+            partial = True
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.errors, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        project = self.get_object(pk)
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 class ReportDetail(APIView):
 
     def get_object(self, pk):
@@ -42,14 +61,18 @@ class ReportDetail(APIView):
         serializer = ReportsSerlializer(report)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        reports = ReportsSerlializer(reports, many=True)
-        if ReportsSerlializer.is_valid():
-            ReportsSerlializer.save()
-            return Response(
-                ReportsSerlializer.data,
-                status=status.HTTP_400_BAD_REQUEST
+    def put(self, request):
+        report = self.get_object(pk)
+        data = request.data
+        serializer = ReportsSerlializer(
+            instance=report,
+            data=data,
+            partial=True
         )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, pk):
         report = self.get_object(pk)
@@ -64,3 +87,8 @@ class ReportDetail(APIView):
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
         )
+
+    def delete(self, request, pk):
+        report = self.get_object(pk)
+        report.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
