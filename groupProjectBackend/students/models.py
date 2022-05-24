@@ -14,13 +14,25 @@ class Students(BaseModel):
         Alumni = "Alumni"
         Mentor = "Mentor"
 
+    class DemographicGender(models.TextChoices):
+        Female = "Female"
+        Non_binary = "Nonbinary"
+        Bi_gender = "Bigender"
+        trans_gender = "Transgender"
+        other = "Other"
+
     name = models.CharField(max_length=200)
     contact_email = models.CharField(max_length=200)
     contact_phone = models.CharField(max_length=200)
     biography = models.TextField()
     location = models.CharField(max_length=200)
-    demographic_gender = models.CharField(max_length=200)
+    demographic_gender = models.CharField(
+        max_length=13,
+        choices=DemographicGender.choices,
+        null=True
+    )
     demographic_nationality = models.CharField(max_length=200)
+    aboriginal_islander = models.BooleanField(null=True)
     social_linkedin = models.URLField()
     social_github = models.URLField()
     employment_company = models.CharField(max_length=200)
