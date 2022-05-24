@@ -20,6 +20,11 @@ class ReportsSerlializer(serializers.Serializer):
     def create(self, validated_data):
         return Reports.objects.create(**validated_data)
 
+    # def update(self, validated_data):
+    #     return Reports.objects.update(**validated_data)
+    
+    # def delete(self, validated_data):
+    #     return Reports.objects.delete(**validated_data)
         
 
 

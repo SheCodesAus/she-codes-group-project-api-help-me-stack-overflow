@@ -8,6 +8,7 @@ from rest_framework import status
 
 class ReportList(APIView):
 
+
     def get(self, request):
         reports = Reports.objects.all()
         serializer = ReportsSerlializer(reports, many=True)
@@ -34,7 +35,7 @@ class ReportList(APIView):
         reports = self.get_objects(pk)
         ReportList = request.data
         serializer = ReportsSerlializer(
-            instance = project,
+            instance = reports,
             data = data,
             partial = True
         )
@@ -44,8 +45,8 @@ class ReportList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        project = self.get_object(pk)
-        project.delete()
+        report = self.get_object(pk)
+        report.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ReportDetail(APIView):
