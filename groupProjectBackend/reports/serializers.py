@@ -6,6 +6,7 @@ class ReportsSerlializer(serializers.Serializer):
     location = serializers.CharField(max_length=200)
     demographic_gender = serializers.CharField(max_length=200)
     demographic_nationality = serializers.CharField(max_length=200)
+    program_name = serializers.CharField(max_length=100)
     total_attendance = serializers.IntegerField()
     program_attendence = serializers.IntegerField()
     attendee_to_alumni = serializers.IntegerField()

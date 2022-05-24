@@ -14,6 +14,7 @@ class Reports(models.Model):
     location = models.CharField(max_length=200)
     demographic_gender = models.CharField(max_length=200)
     demographic_nationality = models.CharField(max_length=200)
+    program_name = models.CharField(null=True, max_length=100)
     total_attendance = models.IntegerField()
     program_attendence = models.IntegerField()
     attendee_to_alumni = models.IntegerField()
