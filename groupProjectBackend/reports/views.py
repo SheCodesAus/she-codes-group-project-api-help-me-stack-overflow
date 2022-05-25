@@ -1,21 +1,25 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Reports
-from .serializers import ReportsSerlializer
+from .serializers import ReportsSerlializer, ReportDetailSerializer
 from django.http import Http404
-from rest_framework import status
+from rest_framework import status, permissions
 
 
 class ReportList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+    def get_object(self, pk):
+        try:
+            return Reports.object.get(pk=pk)
+        except Reports.DoesNotExist:
+            raise Http404
 
     def get(self, request):
         reports = Reports.objects.all()
         serializer = ReportsSerlializer(reports, many=True)
         return Response(
-            serializer.data,
-            status=status.HTTP_201_CREATED
-            )
+            serializer.data)
 
     
     def post(self, request):
@@ -31,30 +35,12 @@ class ReportList(APIView):
                 status=status.HTTP_400_BAD_REQUEST
         )
 
-    def put(self, request, pk):
-        reports = self.get_objects(pk)
-        ReportList = request.data
-        serializer = ReportsSerlializer(
-            instance = reports,
-            data = data,
-            partial = True
-        )
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.errors, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk):
-        report = self.get_object(pk)
-        report.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
 class ReportDetail(APIView):
 
     def get_object(self, pk):
         try:
             return Reports.objects.get(pk=pk)
-        except ReportsSerlializer.DoesNotExist:
+        except Reports.DoesNotExist:
             raise Http404
     
     def get(self, request, pk):
@@ -62,18 +48,17 @@ class ReportDetail(APIView):
         serializer = ReportsSerlializer(report)
         return Response(serializer.data)
 
-    def put(self, request):
+    def put(self, request, pk):
         report = self.get_object(pk)
         data = request.data
-        serializer = ReportsSerlializer(
+        serializer = ReportDetailSerializer(
             instance=report,
             data=data,
             partial=True
         )
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     def post(self, request, pk):
         report = self.get_object(pk)
