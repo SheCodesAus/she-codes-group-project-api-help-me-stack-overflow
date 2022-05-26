@@ -40,7 +40,7 @@ class ReportDetail(APIView):
     def get_object(self, pk):
         try:
             return Reports.objects.get(pk=pk)
-        except Reports.DoesNotExist:
+        except Response.DoesNotExist:
             raise Http404
     
     def get(self, request, pk):
@@ -51,12 +51,20 @@ class ReportDetail(APIView):
     def put(self, request, pk):
         report = self.get_object(pk)
         data = request.data
-        serializer = ReportsSerializer(
+        serializer = ReportsSerlializer(
             data=data,
             partial=True
         )
         if serializer.is_valid():
             serializer.save()
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+                )
+        return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+        )
 
 
     def post(self, request, pk):
