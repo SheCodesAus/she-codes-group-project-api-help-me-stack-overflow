@@ -1,13 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Reports
-from .serializers import ReportsSerlializer, ReportDetailSerializer
+from .serializers import ReportsSerlializer
 from django.http import Http404
-from rest_framework import status, permissions
+from rest_framework import status
 
 
 class ReportList(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
 
     def get_object(self, pk):
         try:
@@ -51,8 +51,7 @@ class ReportDetail(APIView):
     def put(self, request, pk):
         report = self.get_object(pk)
         data = request.data
-        serializer = ReportDetailSerializer(
-            instance=report,
+        serializer = ReportsSerializer(
             data=data,
             partial=True
         )

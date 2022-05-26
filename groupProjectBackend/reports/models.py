@@ -24,10 +24,6 @@ class Reports(models.Model):
     transition_to_tech = models.IntegerField()
     transition_to_other_program = models.IntegerField()
     transition_to_other_study = models.IntegerField()
-    admin = models.ForeignKey(
-        get_user_model(),
-        on_delete=models.CASCADE,
-        related_name='admin_reports'
-    )
+
 
 
