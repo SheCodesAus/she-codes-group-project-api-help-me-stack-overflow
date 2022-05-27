@@ -45,7 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users1.app.UsersConfig',
 ]
+
+AUTH_USER_MODEL = 'users1.CustomerUser'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
