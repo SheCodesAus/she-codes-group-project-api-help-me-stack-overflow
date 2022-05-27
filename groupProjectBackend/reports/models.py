@@ -1,8 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.contrib.auth import get_user_model
 
-User = get_user_model()
+# User = app.get_user_model()
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -25,10 +24,11 @@ class Reports(models.Model):
     transition_to_tech = models.IntegerField()
     transition_to_other_program = models.IntegerField()
     transition_to_other_study = models.IntegerField()
-    admin = models.models.ForeignKey(
+    owner = models.ForeignKey(
         get_user_model(), 
-        on_delete=models.CASCADE
-        related_name="admin_reports"
+        on_delete=models.CASCADE,
+        related_name="owner_reports",
+        null=True
     )
 
 
