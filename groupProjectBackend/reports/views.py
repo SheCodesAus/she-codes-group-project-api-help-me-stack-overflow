@@ -3,10 +3,12 @@ from rest_framework.response import Response
 from .models import Reports
 from .serializers import ReportsSerlializer
 from django.http import Http404
-from rest_framework import status
+from rest_framework import status, permissions
+from .permissions import IsOwnerOrReadOnly
 
 
 class ReportList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
     def get_object(self, pk):
@@ -36,10 +38,16 @@ class ReportList(APIView):
         )
 
 class ReportDetail(APIView):
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly
+    ]
 
     def get_object(self, pk):
         try:
-            return Reports.objects.get(pk=pk)
+            report = Report.objects.get(pk=pk)
+            self.check_object_permissions(self.request, report)
+            return report
         except Response.DoesNotExist:
             raise Http404
     
