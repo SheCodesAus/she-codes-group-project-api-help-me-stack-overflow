@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'students.apps.StudentsConfig',
     'programs.apps.ProgramsConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'reports.apps.ReportsConfig',
     'django.contrib.admin',
@@ -52,6 +53,12 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+REST_FRAMEWORK = {
+     'DEFAULT_AUTHENTICATION_CLASSES':[
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication"   
+    ]
+}
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
