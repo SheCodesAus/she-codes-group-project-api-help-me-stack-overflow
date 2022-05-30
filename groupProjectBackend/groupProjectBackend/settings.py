@@ -36,9 +36,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'students.apps.StudentsConfig',
     'programs.apps.ProgramsConfig',
-    'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
     'reports.apps.ReportsConfig',
@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_FRAMEWORK = {
+
      'DEFAULT_AUTHENTICATION_CLASSES':[
         "rest_framework.authentication.TokenAuthentication",
         "rest_framework.authentication.SessionAuthentication"   
