@@ -23,7 +23,7 @@ urlpatterns = [
     path('', include('users.urls')),
     path('', include('programs.urls')),
     path('', include('students.urls')),
-        path('api-auth/', obtain_auth_token, name='api_token_auth'),
+    path('api-auth/', obtain_auth_token, name='api_token_auth'),
 ]
 
 
