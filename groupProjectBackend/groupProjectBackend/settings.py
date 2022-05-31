@@ -36,8 +36,12 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'students.apps.StudentsConfig',
+    'programs.apps.ProgramsConfig',
     'corsheaders',
+    'users.apps.UsersConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'reports.apps.ReportsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +50,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",   
+    ]
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
