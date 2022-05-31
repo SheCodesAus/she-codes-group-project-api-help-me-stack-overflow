@@ -4,6 +4,7 @@ from django.http import Http404
 from rest_framework import status
 from .models import Programs
 from .serializers import ProgramsSerializer, ProgramsDetailSerializer
+from rest_framework.permissions import IsAuthenticated
 
 # Programs listing functions. View list of programs using get and create programs using post
 class ProgramsList(APIView):

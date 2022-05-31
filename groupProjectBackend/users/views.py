@@ -4,21 +4,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import CustomUser
 from .serializers import CustomUserSerializer
-
-# Create your views here.
-
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
-
 
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
         token = Token.objects.get(key=response.data['token'])
         return Response({'token': token.key, 'id': token.user_id})
-
-
 
 class CustomUserList(APIView):
 
@@ -31,7 +24,10 @@ class CustomUserList(APIView):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors)
+            return Response(serializer.data)
+        else
+          return Response(serializer.errors)
+
 
 class CustomUserDetail(APIView):
     def get_object(self, pk):
@@ -45,4 +41,3 @@ class CustomUserDetail(APIView):
         serializer = CustomUserSerializer(user)
         return Response(serializer.data)
 
-        

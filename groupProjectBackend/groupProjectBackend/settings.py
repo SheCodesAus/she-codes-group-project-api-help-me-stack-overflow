@@ -36,22 +36,22 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'students.apps.StudentsConfig',
     'programs.apps.ProgramsConfig',
+    'reports.apps.ReportsConfig',
     'corsheaders',
     'users.apps.UsersConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    # 'reports.apps.ReportsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users.apps.UsersConfig',
 ]
-
-
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
