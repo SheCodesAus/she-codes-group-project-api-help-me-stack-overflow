@@ -4,11 +4,11 @@ from .models import Reports
 from .serializers import ReportsSerlializer
 from django.http import Http404
 from rest_framework import status, permissions
-from .permissions import IsOwnerOrReadOnly, IsAuthorOrReadOnly
+from .permissions import IsSuperUser
 
 
 class ReportList(APIView):
-    permissions_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permissions_classes = [IsSuperUser]
 
 
     def get_object(self, pk):
@@ -38,8 +38,7 @@ class ReportList(APIView):
         )
 
 class ReportDetail(APIView):
-    permission_classes = [IsOwnerOrReadOnly
-]
+    permission_classes = [IsSuperUser]
 
     def get_object(self, pk):
         try:

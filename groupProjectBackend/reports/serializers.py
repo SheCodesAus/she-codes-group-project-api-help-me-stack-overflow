@@ -16,7 +16,6 @@ class ReportsSerlializer(serializers.Serializer):
     transition_to_tech = serializers.IntegerField()
     transition_to_other_program = serializers.IntegerField()
     transition_to_other_study = serializers.IntegerField()
-    owner = serializers.ReadOnlyField(source='owner.id')
 
     def create(self, validated_data):
         return Reports.objects.create(**validated_data)
@@ -35,7 +34,6 @@ class ReportsSerlializer(serializers.Serializer):
         instance.transition_to_tech = validated_data.get('transition_to_tech;', instance.transition_to_tech)
         instance.transition_to_other_program = validated_data.get('transition_to_other_program;', instance.transition_to_other_program)
         instance.transition_to_other_study = validated_data.get('transition_to_other_study;', instance.transition_to_other_study)
-        instance.owner = validated_data.get('owner', instance.owner)
         instance.save()
         return instance
 
