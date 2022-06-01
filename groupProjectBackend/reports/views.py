@@ -55,7 +55,7 @@ class ReportDetail(APIView):
         return Response(serializer.data)
 
     def put(self, request, pk):
-        reports = ReportDetail.get_object(pk)
+        reports = self.get_object(pk)
         data = request.data
         serializer = ReportsSerlializer(
             instance=reports,
@@ -91,4 +91,6 @@ class ReportDetail(APIView):
     def delete(self, request, pk):
         report = self.get_object(pk)
         report.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            status=status.HTTP_204_NO_CONTENT
+        )
