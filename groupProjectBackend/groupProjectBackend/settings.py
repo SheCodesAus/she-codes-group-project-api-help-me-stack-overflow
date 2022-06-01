@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'programs.apps.ProgramsConfig',
     'reports.apps.ReportsConfig',
     'corsheaders',
-    'users.apps.UsersConfig',
-    'rest_framework',
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
