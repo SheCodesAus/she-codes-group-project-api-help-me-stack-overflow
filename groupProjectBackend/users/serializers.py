@@ -9,4 +9,3 @@ class CustomUserSerializer(serializers.Serializer):
     def created(self, validated_data):
         return CustomUser.objects.create(**validated_data)
 
-        
